@@ -4,10 +4,10 @@ from IPy import IP
 
 class show():
     def __init__(self):
-        # self.hosts = self.init_hosts()
-        # self.ipsegs = self.random_ipseg(3)
-        # self.ipsegs_to_infect = ['192.168.1.0/12', '192.168.1.1', '10.59.12.1/12']
-        # self.ips = self.random_ips(self.ipsegs, 10)
+        self.hosts = self.init_hosts()
+        self.ipsegs = self.random_ipseg(3)
+        self.ipsegs_to_infect = ['192.168.1.0/12', '192.168.1.1', '10.59.12.1/12']
+        self.ips = self.random_ips(self.ipsegs, 10)
         pass
     
     def random_ipseg(self, num):
@@ -162,11 +162,9 @@ class show():
     def check_available(self):
         print("\n###############################################")
         print("Stage 5 check servers' availability")
-        
-    def get_rand_ip(self):
-        pass
+
 
 
 if __name__ == "__main__":
     test = show()
-    test.init_hosts_test()
+    test.show_server()
