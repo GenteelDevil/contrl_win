@@ -4,7 +4,7 @@ from IPy import IP
 
 class show():
     def __init__(self):
-        # self.hosts = self.init_hosts()
+        self.hosts = []
         # 需要进行感染的IP
         self.ipsegs_to_infect = ['192.168.1.0/12', '192.168.1.1', '10.59.12.1/12']
     
@@ -29,6 +29,13 @@ class show():
                 ipsegs_set.append(ipseg)
                 num -= 1 
             print(num)
+        for each in self.ipsegs_to_infect:
+            if '/' in each:
+                ipsegs_set.append(each)
+            else:
+                self.hosts.append(each)
+        print(self.hosts)
+        print(ipsegs_set)
         return ipsegs_set
     
     def random_ips(self, ips, num):
