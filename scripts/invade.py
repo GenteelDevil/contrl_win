@@ -6,7 +6,7 @@ class show():
     def __init__(self):
         self.hosts = []
         # 需要进行感染的IP
-        self.ipsegs_to_infect = ['192.168.1.0/12', '192.168.1.1', '10.59.12.1/12']
+        self.ipsegs_to_infect = ['192.168.0.0/24', '192.168.1.1', '10.59.12.0/24']
     
     def random_ipseg(self, num):
         # 获得随机的一些内网IP段
@@ -28,14 +28,11 @@ class show():
             else:
                 ipsegs_set.append(ipseg)
                 num -= 1 
-            print(num)
         for each in self.ipsegs_to_infect:
             if '/' in each:
                 ipsegs_set.append(each)
             else:
                 self.hosts.append(each)
-        print(self.hosts)
-        print(ipsegs_set)
         return ipsegs_set
     
     def random_ips(self, ips, num):
@@ -67,19 +64,17 @@ class show():
     
     # 从以下是正式的功能
 
-    def init_hosts(self):
+    def init_hosts(self, num_ipsegs, min_num_ips, max_num_ips):
         # 加载config文件
         # 重要的一些config字段
         # - IP字段
         # 存储已有的主机
-        ipseg_num = 10
-        hosts = []
         anti_mal = ['Kaspersky', 'Norton', '360']
         # 指定数量的IP段
-        ipsegs = self.random_ipseg(ipseg_num)
+        ipsegs = self.random_ipseg(num_ipsegs)
         for ipseg in ipsegs:
             # 从IP段中获得IP
-            num = random.randint(10, 15)
+            num = random.randint(min_num_ips, max_num_ips)
             ips = self.random_ips(ipseg, num=num)
             for ip in ips:
                 tmp_host = {}
@@ -92,8 +87,7 @@ class show():
                     tmp_host['antimal'] = anti_mal[random.randint(0, 2) % 3]
                 else:
                     tmp_host['antimal'] = None
-                hosts.append(tmp_host)
-        return hosts
+                self.hosts.append(tmp_host)
 
     # 正式的step文件
     def parse_config(self):
@@ -155,4 +149,4 @@ class show():
 
 if __name__ == "__main__":
     test = show()
-    print(test.random_ipseg(3))
+    test.init_hosts(10, 4, 8)
