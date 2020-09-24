@@ -1,3 +1,11 @@
+'''
+Author: your name
+Date: 2020-09-24 16:11:15
+LastEditTime: 2020-09-24 16:46:11
+LastEditors: Please set LastEditors
+Description: In User Settings Edit
+FilePath: /control_win/scripts/invade.py
+'''
 import time
 import random
 from IPy import IP
@@ -5,6 +13,7 @@ from IPy import IP
 class show():
     def __init__(self):
         self.hosts = []
+        self.ipsegs = []
         # 需要进行感染的IP
         self.ipsegs_to_infect = ['192.168.0.0/24', '192.168.1.1', '10.59.12.0/24']
     
@@ -32,7 +41,18 @@ class show():
             if '/' in each:
                 ipsegs_set.append(each)
             else:
-                self.hosts.append(each)
+                tmp_host = {}
+                anti_mal = ['Kaspersky', 'Norton', '360']
+                tmp_host['mac'] = self.random_mac()
+                tmp_host['ip_seg'] = each
+                tmp_host['ip'] = each
+                tmp_host['server'] = not bool(random.randint(1, 5) % 5)
+                tmp_host['status'] = bool(random.randint(1, 5) % 5)
+                if tmp_host['server']:
+                    tmp_host['antimal'] = anti_mal[random.randint(0, 2) % 3]
+                else:
+                    tmp_host['antimal'] = None
+                self.hosts.append(tmp_host)
         return ipsegs_set
     
     def random_ips(self, ips, num):
@@ -71,8 +91,8 @@ class show():
         # 存储已有的主机
         anti_mal = ['Kaspersky', 'Norton', '360']
         # 指定数量的IP段
-        ipsegs = self.random_ipseg(num_ipsegs)
-        for ipseg in ipsegs:
+        self.ipsegs = self.random_ipseg(num_ipsegs)
+        for ipseg in self.ipsegs:
             # 从IP段中获得IP
             num = random.randint(min_num_ips, max_num_ips)
             ips = self.random_ips(ipseg, num=num)
@@ -88,7 +108,8 @@ class show():
                 else:
                     tmp_host['antimal'] = None
                 self.hosts.append(tmp_host)
-
+        
+                
     # 正式的step文件
     def parse_config(self):
         print("\n###############################################")
@@ -144,9 +165,12 @@ class show():
         print("\n###############################################")
         print("Stage 5 check servers' availability")
         
-
+    
 
 
 if __name__ == "__main__":
     test = show()
     test.init_hosts(10, 4, 8)
+    test.parse_config()
+    test.output_config()
+    test.scan_hosts()
