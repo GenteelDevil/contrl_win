@@ -4,11 +4,9 @@ from IPy import IP
 
 class show():
     def __init__(self):
-        self.hosts = self.init_hosts()
-        self.ipsegs = self.random_ipseg(3)
+        # self.hosts = self.init_hosts()
+        # 需要进行感染的IP
         self.ipsegs_to_infect = ['192.168.1.0/12', '192.168.1.1', '10.59.12.1/12']
-        self.ips = self.random_ips(self.ipsegs, 10)
-        pass
     
     def random_ipseg(self, num):
         # 获得随机的一些内网IP段
@@ -26,11 +24,11 @@ class show():
             ip4 = 0
             ipseg = str(ip1) + '.' + str(ip2) + '.' + str(ip3) + '.' + str(ip4) + '/24'
             if ipseg in ipsegs_set:
-                num += 1
                 continue
             else:
                 ipsegs_set.append(ipseg)
                 num -= 1 
+            print(num)
         return ipsegs_set
     
     def random_ips(self, ips, num):
@@ -60,15 +58,17 @@ class show():
         RANDMAC = ":".join(Maclist)
         return RANDMAC
     
+    # 从以下是正式的功能
+
     def init_hosts(self):
         # 加载config文件
         # 重要的一些config字段
         # - IP字段
         # 存储已有的主机
+        ipseg_num = 10
         hosts = []
         anti_mal = ['Kaspersky', 'Norton', '360']
         # 指定数量的IP段
-        ipseg_num = random.randint(10, 13)
         ipsegs = self.random_ipseg(ipseg_num)
         for ipseg in ipsegs:
             # 从IP段中获得IP
@@ -88,27 +88,7 @@ class show():
                 hosts.append(tmp_host)
         return hosts
 
-    def init_hosts_test(self):
-        arch = ["win7/64", "win7/32", "win10/32", "win10/64", "winserver2008/32", "winserver2008/64", "winserver2012/32", "winserver2012/64", "winserver2016/32", "winserver2016/64"]
-        hosts = []
-        # 指定数量的IP段
-        ipsegs = self.random_ipseg(10)
-        print(ipsegs)
-        for ipseg in ipsegs:
-            # 从IP段中获得IP
-            ips = self.random_ips(ipseg, 10)
-            for ip in ips:
-                tmp_host = {}
-                tmp_host['mac'] = self.random_mac()
-                tmp_host['ip_seg'] = ipseg
-                tmp_host['ip'] = ip
-                tmp_host['arch'] = arch[random.randint(1, 9)]
-                tmp_host['status'] = "oneline"
-                hosts.append(tmp_host)
-                print(tmp_host)
-        return hosts 
-
-
+    # 正式的step文件
     def parse_config(self):
         print("\n###############################################")
         print("Stage 1: parse configure files")
@@ -162,9 +142,10 @@ class show():
     def check_available(self):
         print("\n###############################################")
         print("Stage 5 check servers' availability")
+        
 
 
 
 if __name__ == "__main__":
     test = show()
-    test.show_server()
+    print(test.random_ipseg(3))
