@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2020-09-24 16:11:15
-LastEditTime: 2020-09-24 16:46:11
+LastEditTime: 2020-09-24 16:52:07
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /control_win/scripts/invade.py
@@ -165,6 +165,8 @@ class show():
         print("\n###############################################")
         print("Stage 5 check servers' availability")
         
+        
+        
     
 
 
@@ -174,3 +176,5 @@ if __name__ == "__main__":
     test.parse_config()
     test.output_config()
     test.scan_hosts()
+    test.show_server()
+    test.check_available()
