@@ -128,3 +128,73 @@ Stage 5 check servers' availability
     [*] Loading contrl module...
     [*] Load Success!
 [+] 所有流程成功
+
++---------------------------+
+| Server                    |
++---------------------------+
+| IP   |                    
++---------------------------+
+| MAC  |
++------+--------------------+
+| Arch |
++------+---------------------
+
+[+] Getting webconsole on server
+  [-]  On server IP 192.168.100.1  
+    [*] Detecing webconsole by port...
+    [*] Genarating payload for the webconsole...
+    [*] Sending payload to the anti-mal...
+    [*] Geting privilege of the webconsole...
+    [*] Success! webconsole got!
+
+  [-]  On server IP 172.16.100.1   
+    [*] Detecing webconsole by port...
+    [*] Genarating payload for the webconsole...
+    [*] Sending payload to the anti-mal...
+    [*] Geting privilege of the webconsole...
+    [*] Success! webconsole got!
+
+  [-]  On server IP 10.0.100.1     
+    [*] Detecing webconsole by port...
+    [*] Genarating payload for the webconsole...
+    [*] Sending payload to the anti-mal...
+    [*] Geting privilege of the webconsole...
+    [*] Success! webconsole got!
+
+[+] Scannig clients from server
+  [-] Scanning clients from server
+    [*] Server status
+      +----------------------------------------+
+      |      Server IP :   192.168.100.1       |
+      +---------------------+------------------+
+      | Anti-Mal  | version |      Arch        |
+      +-----------+---------+------------------+
+      | Kaspersky |  1.1.1  | winserver2012/64 |
+      +-----------+---------+------------------+
+    [*] Scanning client by Server: 192.168.100.1...
+    [*] 20 clients find in total
+
+  [-] Scanning clients from server
+    [*] Server status
+      +----------------------------------------+
+      |      Server IP :   172.16.100.1        |
+      +---------------------+------------------+
+      | Anti-Mal  | version |      Arch        |
+      +-----------+---------+------------------+
+      |   Norton  |  1.1.1  | winserver2012/32 |
+      +-----------+---------+------------------+
+    [*] Scanning client by Server: 172.16.100.1...
+    [*] 20 clients find in total
+
+  [-] Scanning clients from server
+    [*] Server status
+      +----------------------------------------+
+      |      Server IP :   10.0.100.1          |
+      +---------------------+------------------+
+      | Anti-Mal  | version |      Arch        |
+      +-----------+---------+------------------+
+      |    360    |  1.1.1  | winserver2016/64 |
+      +-----------+---------+------------------+
+    [*] Scanning client by Server: 10.0.100.1...
+    [*] 20 clients find in total
+

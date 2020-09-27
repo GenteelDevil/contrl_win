@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2020-09-24 16:11:15
-LastEditTime: 2020-09-27 15:23:33
+LastEditTime: 2020-09-27 18:29:00
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /control_win/scripts/invade.py
@@ -163,7 +163,7 @@ class show():
                       {'mac': '94:f8:04:01:73:4f', 'ip_seg': '192.168.0.0/16', 'ip': '192.168.224.85',
                        'server': False, 'status': True, 'antimal': None, 'arch': 'win8/64'},
                       {'mac': 'c1:cd:53:50:e4:bd', 'ip_seg': '192.168.0.0/16', 'ip': '192.168.100.1',
-                       'server': True, 'status': True, 'antimal': 'Kaspersky', 'arch': 'winserver2000/64'},
+                       'server': True, 'status': True, 'antimal': 'Kaspersky', 'arch': 'winserver2012/64', 'client' : 20},
                       {'mac': 'f5:c7:21:36:a8:1e', 'ip_seg': '192.168.0.0/16', 'ip': '192.168.9.17',
                        'server': False, 'status': True, 'antimal': None, 'arch': 'win7/32'},
                       {'mac': '53:2f:ea:c8:57:82', 'ip_seg': '192.168.0.0/16', 'ip': '192.168.36.195',
@@ -203,7 +203,7 @@ class show():
                       {'mac': '57:ae:73:1d:90:ca', 'ip_seg': '172.16.0.0/16', 'ip': '172.16.5.2',
                        'server': False, 'status': True, 'antimal': None, 'arch': 'win8/64'},
                       {'mac': 'e9:be:b8:c4:0e:3f', 'ip_seg': '172.16.0.0/16', 'ip': '172.16.100.1',
-                       'server': True, 'status': True, 'antimal': 'Norton', 'arch': 'winserver2012'},
+                       'server': True, 'status': True, 'antimal': 'Norton', 'arch': 'winserver2012/32', 'client' : 20},
                       {'mac': '5e:eb:53:7f:1d:1a', 'ip_seg': '172.16.0.0/16', 'ip': '172.16.63.184',
                        'server': False, 'status': True, 'antimal': None, 'arch': 'win7/32'},
                       {'mac': 'a6:30:a4:4b:32:7a', 'ip_seg': '172.16.0.0/16', 'ip': '172.16.42.37',
@@ -259,7 +259,7 @@ class show():
                       {'mac': '6e:a9:a8:be:86:e0', 'ip_seg': '10.0.0.0/16', 'ip': '10.0.196.144',
                        'server': False, 'status': True, 'antimal': None, 'arch': 'win8/32'},
                       {'mac': '6e:45:5a:21:b2:e6', 'ip_seg': '10.0.0.0/16', 'ip': '10.0.100.1',
-                       'server': True, 'status': True, 'antimal': '360', 'arch': 'win8/64'},
+                       'server': True, 'status': True, 'antimal': '360', 'arch': 'winserver2016/64', 'client' : 20},
                       {'mac': '85:8c:58:d1:71:6f', 'ip_seg': '10.0.0.0/16', 'ip': '10.0.88.58',
                        'server': False, 'status': True, 'antimal': None, 'arch': 'win8/32'},
                       {'mac': 'ea:7a:e6:37:95:ab', 'ip_seg': '10.0.0.0/16', 'ip': '10.0.165.134',
@@ -300,7 +300,7 @@ class show():
         print("\n####################################################################")
         print("Stage 3: scan hosts")
         print("[+] Scanning hosts in IP ranges")
-        print("      IP                    MAC           Server      Status")
+        print("      IP                    MAC           Server      Status    Arch")
         for host in self.hosts:
             if host['server']:
                 server_flag = "yes"
@@ -311,7 +311,7 @@ class show():
             else:
                 server_status = "offline"
             print("  " + '%-15s' % host['ip'] + "    " + host['mac'] +
-                  "     " + server_flag + "       " + server_status)
+                  "     " + server_flag + "       " + server_status  + "   " + host['arch'])
 
     def show_server(self):
         # 输出扫描到主机的相关情况
@@ -340,12 +340,35 @@ class show():
         print("\n####################################################################")
         print("Final Step")
         print("[+] All Steps finished!")
+    
+    def log_show_server(self):
+        print("[+] Getting webconsole on server")
+        for each in self.hosts:
+            if each['server'] == True:
+                print("  [-]  On server IP " + '%-15s' % each['ip'])
+                print("    [*] Detecing webconsole by port...")
+                print("    [*] Genarating payload for the webconsole...")
+                print("    [*] Sending payload to the anti-mal...")
+                print("    [*] Geting privilege of the webconsole...")
+                print("    [*] Success! webconsole got!\n")
+        print("[+] Scannig clients from server")
+        for each in self.hosts:
+            if each['server'] == True:
+                print("  [-] Scanning clients from server")
+                print("    [*] Server status")
+                print("      +----------------------------------------+")
+                print("      |      Server IP :   " + '%-15s' % each['ip'] + '     |')
+                print("      +---------------------+------------------+")
+                print("      | Anti-Mal  | version |      Arch        |")
+                print("      +-----------+---------+------------------+")
+                print("      | " + each['antimal'].center(10,) + '| ' + ' %-7s' % '1.1.1' + '|' + ' %-16s' % each['arch'] + ' |')
+                print("      +-----------+---------+------------------+")
+                print("    [*] Scanning client by Server: " + each['ip'] + '...')
+                print("    [*] " + str(each['client']).ljust(3,) + "clients find in total\n")
+        
+
 
 if __name__ == "__main__":
     test = show()
     test.init_hosts_final()
-    test.parse_config()
-    test.output_config()
-    test.scan_hosts()
-    test.show_server()
-    test.check_available()
+    test.log_show_server()
