@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2020-09-24 16:11:15
-LastEditTime: 2020-09-24 16:52:07
+LastEditTime: 2020-09-27 12:45:25
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /control_win/scripts/invade.py
@@ -29,8 +29,9 @@ class show():
                 ip2 = random.randint(16, 31)
             else:
                 ip2 = 168
-            ip3 = 0
+            ip3 = random.randint(1, 24)
             ip4 = 0
+
             ipseg = str(ip1) + '.' + str(ip2) + '.' + str(ip3) + '.' + str(ip4) + '/24'
             if ipseg in ipsegs_set:
                 continue
@@ -108,7 +109,31 @@ class show():
                 else:
                     tmp_host['antimal'] = None
                 self.hosts.append(tmp_host)
-        
+    
+    def init_test_hosts(self, num_ipsegs, min_num_ips, max_num_ips):
+    # 加载config文件
+    # 重要的一些config字段
+    # - IP字段
+    # 存储已有的主机
+        anti_mal = ['Kaspersky', 'Norton', '360']
+        # 指定数量的IP段
+        self.ipsegs = self.random_ipseg(num_ipsegs)
+        for ipseg in self.ipsegs:
+            # 从IP段中获得IP
+            num = random.randint(min_num_ips, max_num_ips)
+            ips = self.random_ips(ipseg, num=num)
+            for ip in ips:
+                tmp_host = {}
+                tmp_host['mac'] = self.random_mac()
+                tmp_host['ip_seg'] = ipseg
+                tmp_host['ip'] = ip
+                tmp_host['server'] = not bool(random.randint(1, 5) % 5)
+                tmp_host['status'] = bool(random.randint(1, 5) % 5)
+                if tmp_host['server']:
+                    tmp_host['antimal'] = anti_mal[random.randint(0, 2) % 3]
+                else:
+                    tmp_host['antimal'] = None
+                self.hosts.append(tmp_host)
                 
     # 正式的step文件
     def parse_config(self):
