@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2020-09-24 16:11:15
-LastEditTime: 2020-09-27 13:13:03
+LastEditTime: 2020-09-27 14:41:00
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /control_win/scripts/invade.py
@@ -13,7 +13,7 @@ from IPy import IP
 class show():
     def __init__(self):
         self.hosts = []
-        self.ipsegs = []
+        self.ipsegs = ['192.168.0.0/16', '172.16.0.0/16', '10.0.0.0/16']
         # 需要进行感染的IP
         self.ipsegs_to_infect = ['192.168.0.0/24', '192.168.1.1', '10.59.12.0/24']
     
@@ -92,7 +92,6 @@ class show():
         # 存储已有的主机
         anti_mal = ['Kaspersky', 'Norton', '360']
         # 指定数量的IP段
-        self.ipsegs = self.random_ipseg(num_ipsegs)
         for ipseg in self.ipsegs:
             # 从IP段中获得IP
             num = random.randint(min_num_ips, max_num_ips)
@@ -118,7 +117,6 @@ class show():
         anti_mal = ['Kaspersky', 'Norton', '360']
         arch = ['win7/32', 'win7/64', 'win8/32', 'win8/64', 'winserver2008/32', 'winserver2008/64', 'winserver2012/32', 'winserver2012/64', 'winserver2016/32', 'winserver2016/64']
         # 指定数量的IP段
-        self.ipsegs = self.random_ipseg(num_ipsegs)
         for ipseg in self.ipsegs:
             # 从IP段中获得IP
             num = random.randint(min_num_ips, max_num_ips)
@@ -128,13 +126,15 @@ class show():
                 tmp_host['mac'] = self.random_mac()
                 tmp_host['ip_seg'] = ipseg
                 tmp_host['ip'] = ip
-                tmp_host['server'] = not bool(random.randint(1, 5) % 5)
-                tmp_host['status'] = bool(random.randint(1, 5) % 5)
+                tmp_host['server'] = False
+                tmp_host['status'] = True
                 if tmp_host['server']:
                     tmp_host['antimal'] = anti_mal[random.randint(0, 2) % 3]
                 else:
                     tmp_host['antimal'] = None
                 self.hosts.append(tmp_host)
+        for each in self.hosts:
+            print(str(each) + ', ')
                 
     # 正式的step文件
     def parse_config(self):
@@ -198,9 +198,4 @@ class show():
 
 if __name__ == "__main__":
     test = show()
-    test.init_hosts(10, 4, 8)
-    test.parse_config()
-    test.output_config()
-    test.scan_hosts()
-    test.show_server()
-    test.check_available()
+    test.init_test_hosts(10, 20, 30)
