@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2020-09-24 16:11:15
-LastEditTime: 2020-09-27 14:54:41
+LastEditTime: 2020-09-27 15:04:43
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /control_win/scripts/invade.py
@@ -16,8 +16,8 @@ class show():
         self.hosts = []
         self.ipsegs = ['192.168.0.0/16', '172.16.0.0/16', '10.0.0.0/16']
         # 需要进行感染的IP
-        self.ipsegs_to_infect = ['192.168.0.0/24',
-                                 '192.168.1.1', '10.59.12.0/24']
+        self.ipsegs_to_infect = ['192.168.0.0/16',
+                                 '172.16.0.0/16', '10.0.0.0/24']
 
     def random_ipseg(self, num):
         # 获得随机的一些内网IP段
@@ -300,7 +300,7 @@ class show():
         print("\n###############################################")
         print("Stage 3: scan hosts")
         print("[+] Scanning hosts in IP ranges")
-        print("      IP                MAC         Server   Status")
+        print("      IP                   MAC         Server   Status")
         for host in self.hosts:
             if host['server']:
                 server_flag = "yes"
@@ -310,7 +310,7 @@ class show():
                 server_status = "oneline"
             else:
                 server_status = "offline"
-            print("  " + '%-13s' % host['ip'] + "   " + host['mac'] +
+            print("  " + '%-15s' % host['ip'] + "   " + host['mac'] +
                   "   " + server_flag + "   " + server_status)
 
     def show_server(self):
@@ -333,4 +333,7 @@ class show():
 
 if __name__ == "__main__":
     test = show()
-    test.init_test_hosts(4, 20, 30)
+    test.init_hosts_final()
+    test.parse_config()
+    test.output_config()
+    test.scan_hosts()
