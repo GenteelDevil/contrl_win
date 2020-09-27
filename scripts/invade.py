@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2020-09-24 16:11:15
-LastEditTime: 2020-09-27 15:19:45
+LastEditTime: 2020-09-27 15:23:33
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /control_win/scripts/invade.py
@@ -337,7 +337,9 @@ class show():
                 print("    [*] Connect Success!")
                 print("    [*] Loading control module...")
                 print("    [*] Load Success!")
-
+        print("\n####################################################################")
+        print("Final Step")
+        print("[+] All Steps finished!")
 
 if __name__ == "__main__":
     test = show()
