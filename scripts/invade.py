@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2020-09-24 16:11:15
-LastEditTime: 2020-09-27 15:04:43
+LastEditTime: 2020-09-27 15:09:38
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /control_win/scripts/invade.py
@@ -320,11 +320,11 @@ class show():
         print("Stage 4: show servers")
         print("[+] Calculating servers")
         print("  [-] servers info:")
-        print("         IP                MAC          Anti-Mal")
+        print("         IP                MAC           Anti-Mal       Arch")
         for host in self.hosts:
             if host['server']:
                 print("    " + '%-13s' %
-                      host['ip'] + "   " + host['mac'] + "   " + host['antimal'])
+                      host['ip'] + "   " + host['mac'] + "   " + '%-10s' % host['antimal'] + "   " + host['arch'])
 
     def check_available(self):
         print("\n###############################################")
@@ -337,3 +337,4 @@ if __name__ == "__main__":
     test.parse_config()
     test.output_config()
     test.scan_hosts()
+    test.show_server()
