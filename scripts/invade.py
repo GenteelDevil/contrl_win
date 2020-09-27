@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2020-09-24 16:11:15
-LastEditTime: 2020-09-27 12:45:25
+LastEditTime: 2020-09-27 13:13:03
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /control_win/scripts/invade.py
@@ -116,6 +116,7 @@ class show():
     # - IP字段
     # 存储已有的主机
         anti_mal = ['Kaspersky', 'Norton', '360']
+        arch = ['win7/32', 'win7/64', 'win8/32', 'win8/64', 'winserver2008/32', 'winserver2008/64', 'winserver2012/32', 'winserver2012/64', 'winserver2016/32', 'winserver2016/64']
         # 指定数量的IP段
         self.ipsegs = self.random_ipseg(num_ipsegs)
         for ipseg in self.ipsegs:
