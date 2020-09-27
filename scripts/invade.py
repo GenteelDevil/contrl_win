@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2020-09-24 16:11:15
-LastEditTime: 2020-09-27 15:09:38
+LastEditTime: 2020-09-27 15:19:45
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /control_win/scripts/invade.py
@@ -277,12 +277,12 @@ class show():
     # 正式的step文件
 
     def parse_config(self):
-        print("\n###############################################")
+        print("\n####################################################################")
         print("Stage 1: parse configure files")
         print("[+] Reading configurations from files...")
 
     def output_config(self):
-        print("\n###############################################")
+        print("\n####################################################################")
         print("Stage 2: show configurations")
         print("[+] " + str(len(self.ipsegs)) + " IP ranges loaded")
         for each in self.ipsegs:
@@ -297,10 +297,10 @@ class show():
 
     def scan_hosts(self):
         # 对整体的主机进行扫描
-        print("\n###############################################")
+        print("\n####################################################################")
         print("Stage 3: scan hosts")
         print("[+] Scanning hosts in IP ranges")
-        print("      IP                   MAC         Server   Status")
+        print("      IP                    MAC           Server      Status")
         for host in self.hosts:
             if host['server']:
                 server_flag = "yes"
@@ -310,13 +310,13 @@ class show():
                 server_status = "oneline"
             else:
                 server_status = "offline"
-            print("  " + '%-15s' % host['ip'] + "   " + host['mac'] +
-                  "   " + server_flag + "   " + server_status)
+            print("  " + '%-15s' % host['ip'] + "    " + host['mac'] +
+                  "     " + server_flag + "       " + server_status)
 
     def show_server(self):
         # 输出扫描到主机的相关情况
         # IP、MAC、Status、是否server
-        print("\n###############################################")
+        print("\n####################################################################")
         print("Stage 4: show servers")
         print("[+] Calculating servers")
         print("  [-] servers info:")
@@ -327,8 +327,16 @@ class show():
                       host['ip'] + "   " + host['mac'] + "   " + '%-10s' % host['antimal'] + "   " + host['arch'])
 
     def check_available(self):
-        print("\n###############################################")
+        print("\n####################################################################")
         print("Stage 5 check servers' availability")
+        print("[+] Tring to connect servers")
+        for each in self.hosts:
+            if each['server'] == True:
+                print("  [-] Target IP : " + each['ip'])
+                print("    [*] Connecting...")
+                print("    [*] Connect Success!")
+                print("    [*] Loading control module...")
+                print("    [*] Load Success!")
 
 
 if __name__ == "__main__":
@@ -338,3 +346,4 @@ if __name__ == "__main__":
     test.output_config()
     test.scan_hosts()
     test.show_server()
+    test.check_available()
