@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2020-09-24 16:11:15
-LastEditTime: 2020-09-27 18:29:00
+LastEditTime: 2020-09-28 10:24:18
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /control_win/scripts/invade.py
@@ -345,29 +345,23 @@ class show():
         print("[+] Getting webconsole on server")
         for each in self.hosts:
             if each['server'] == True:
-                print("  [-]  On server IP " + '%-15s' % each['ip'])
+                print("  [-]  Server IP " + each['ip'] + " is online")
+                print("    [*] Getting server status")
+                print("    +----------------------------------------+")
+                print("    |      Server IP :   " + '%-15s' % each['ip'] + '     |')
+                print("    +---------------------+------------------+")
+                print("    | Anti-Mal  | version |      Arch        |")
+                print("    +-----------+---------+------------------+")
+                print("    | " + each['antimal'].center(10,) + '| ' + ' %-7s' % '1.1.1' + '|' + ' %-16s' % each['arch'] + ' |')
+                print("    +-----------+---------+------------------+")
                 print("    [*] Detecing webconsole by port...")
                 print("    [*] Genarating payload for the webconsole...")
                 print("    [*] Sending payload to the anti-mal...")
                 print("    [*] Geting privilege of the webconsole...")
-                print("    [*] Success! webconsole got!\n")
-        print("[+] Scannig clients from server")
-        for each in self.hosts:
-            if each['server'] == True:
-                print("  [-] Scanning clients from server")
-                print("    [*] Server status")
-                print("      +----------------------------------------+")
-                print("      |      Server IP :   " + '%-15s' % each['ip'] + '     |')
-                print("      +---------------------+------------------+")
-                print("      | Anti-Mal  | version |      Arch        |")
-                print("      +-----------+---------+------------------+")
-                print("      | " + each['antimal'].center(10,) + '| ' + ' %-7s' % '1.1.1' + '|' + ' %-16s' % each['arch'] + ' |')
-                print("      +-----------+---------+------------------+")
+                print("    [*] Success! webconsole got!")
                 print("    [*] Scanning client by Server: " + each['ip'] + '...')
                 print("    [*] " + str(each['client']).ljust(3,) + "clients find in total\n")
         
-
-
 if __name__ == "__main__":
     test = show()
     test.init_hosts_final()
